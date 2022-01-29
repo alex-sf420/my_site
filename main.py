@@ -3,6 +3,7 @@ import threading
 from flask import Flask, render_template
 import psutil
 from datetime import *
+import  json
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db/blog.db'
@@ -16,12 +17,13 @@ class Cpuusage(db.Model):
     value = db.Column(db.Float)                                 # загрузка ЦП
     date = db.Column(db.DateTime, default=datetime.utcnow())    # дата/время внесения в БД
 
-    def __repr__(self):
-        return  f'CPUusage {self.id}'
-
 @app.route('/')
 def index():
-    return render_template('index.html', title='Графики')
+    # values = [1, 2, 3, 5, 6]
+    time = [23, 24, 25, 26, 27]
+    values = [x.value for x in db.session.query(Cpuusage.value).distinct()]
+    # time = [x.date.time().replace(microsecond=0) for x in db.session.query(Cpuusage.date).distinct()]
+    return render_template('index.html', values=json.dumps(values), time=json.dumps(time))
 
 def check_usage():
     """
@@ -43,7 +45,7 @@ def check_usage():
 
 if __name__ == '__main__':
     # создаем отдельный поток для запуска сервера
-    th = threading.Thread(target=app.run(debug=True))
+    th = threading.Thread(target=app.run)
     th.start()
     # запускаем функцию сбора данных о загрузке ЦП
     check_usage()
