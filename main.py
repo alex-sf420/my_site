@@ -3,7 +3,7 @@ import threading
 from flask import Flask, render_template
 import psutil
 import time
-from datetime import datetime
+from datetime import datetime, timedelta
 import  json
 
 app = Flask(__name__)
@@ -20,10 +20,17 @@ class Cpuusage(db.Model):
 
 @app.route('/')
 def index():
-    values = [x.value for x in db.session.query(Cpuusage.value).distinct()]
-    date = [x.date for x in db.session.query(Cpuusage.date).distinct()]
+    """
+    Отображает страницу html с переданной ей информацией о загрузке ЦП
+    """
+    now = datetime.now()
+    info = db.session.query(Cpuusage.value, Cpuusage.date).filter(Cpuusage.date > (now - timedelta(hours=1))).all()
+    value = [x[0] for x in info]
+    print(len(value))
+    date = [x[1] for x in info]
+    print(len(date))
     time_for_js = [time.mktime(date[x].timetuple()) * 1000 for x in range(len(date))]
-    return render_template('index.html', values=json.dumps(values), time=json.dumps(time_for_js))
+    return render_template('index.html', values=json.dumps(value), time=json.dumps(time_for_js))
 def check_usage():
     """
     Собирает информацию о загрузке ЦП с заданным интервалом

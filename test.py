@@ -1,7 +1,3 @@
-import time, json
-from datetime import datetime as dt
-your_date = dt.now()
-print(your_date)
-data = json.dumps(time.mktime(your_date.timetuple())*1000)
-print(type(your_date))
+from datetime import datetime, timedelta
+data = datetime.now() - timedelta(hours=1)
 print(data)
