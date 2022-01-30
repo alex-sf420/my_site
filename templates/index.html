@@ -3,20 +3,29 @@
     <head>
         <meta charset="UTF-8">
         <title>Главная страница сайта</title>
-       <link href="..\static\styles.css" rel="stylesheet" type="text/css" >
-       <script src="..\static\Chart.min.js"></script>
+        <link href="..\static\styles.css" rel="stylesheet" type="text/css" >
+        <script src="..\static\Chart.min.js"></script>
     </head>
     <body>
+        <div id="wrapper">
         <h1>Загрузка процессора</h1>
-        <canvas id="myChart" width="400" height="400"></canvas>  
+        <canvas id="myChart1"></canvas> 
+        <canvas id="myChart2"></canvas>
         <script type="text/javascript">
             let values = JSON.parse('{{ values }}');
             let time = (JSON.parse("{{ time }}"));
+            // let options = {
+            //     hour: 'numeric',
+            //     minute: 'numeric',
+            // }
             for(let i=0; i<time.length; i++) {
-                time[i] = new Date(time[i])
+                time[i] = new Date(time[i]);
+                time[i] = `${time[i].toTimeString().slice(0, 9)}`
+                // time[i] = time[i].toLocaleString(options);
             }
             console.log(time)
         </script>
         <script src="..\static\main.js" type="text/javascript"></script>
+        </div>
     </body>
 </html>

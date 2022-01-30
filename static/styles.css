@@ -1,12 +1,32 @@
 html, body { 
 	font-family: 'Arial';
-	margin: 0;
-	padding: 0;
+	margin: 0px;
+	padding: 0px;
 	height: 100%;
 	width: 100%;
 }
 
-#id:myChart {
-	width: 600px;
-	height: 400px;
+div {
+	width: 90%;
+	margin: 0 auto;
+}
+
+h1 {
+	text-align: center;
+	font-family:Comic Sans MS;
+}
+
+canvas {
+	width: 45%;
+	margin: 5px;
+	border: 1px solid;
+	margin: 5px;
+}
+
+#myChart1 {
+	float: left;
+}
+
+#myChart2 {
+	float: right;
 }
