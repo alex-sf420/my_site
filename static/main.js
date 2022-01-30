@@ -2,7 +2,7 @@ const ctx = document.getElementById('myChart').getContext('2d');
 const myChart = new Chart(ctx, {
     type: 'line',
     data: {
-        labels: time,
+        labels: [time],
         datasets: [{
             label: '# of Votes',
             data: values,

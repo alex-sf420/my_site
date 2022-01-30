@@ -1,4 +1,7 @@
-from datetime import *
-a = datetime(2022, 1, 29, 19, 43, 21, 193773)
-print(a)
-
+import time, json
+from datetime import datetime as dt
+your_date = dt.now()
+print(your_date)
+data = json.dumps(time.mktime(your_date.timetuple())*1000)
+print(type(your_date))
+print(data)

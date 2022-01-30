@@ -2,7 +2,8 @@ from flask_sqlalchemy import SQLAlchemy
 import threading
 from flask import Flask, render_template
 import psutil
-from datetime import *
+import time
+from datetime import datetime
 import  json
 
 app = Flask(__name__)
@@ -19,12 +20,10 @@ class Cpuusage(db.Model):
 
 @app.route('/')
 def index():
-    # values = [1, 2, 3, 5, 6]
-    time = [23, 24, 25, 26, 27]
     values = [x.value for x in db.session.query(Cpuusage.value).distinct()]
-    # time = [x.date.time().replace(microsecond=0) for x in db.session.query(Cpuusage.date).distinct()]
-    return render_template('index.html', values=json.dumps(values), time=json.dumps(time))
-
+    date1 = [x.date for x in db.session.query(Cpuusage.date).distinct()]
+    data = json.dumps(time.mktime(date1[0].timetuple()) * 1000)
+    return render_template('index.html', values=json.dumps(values), time=data)
 def check_usage():
     """
     Собирает информацию о загрузке ЦП с заданным интервалом
@@ -33,7 +32,7 @@ def check_usage():
     """
     try:
         while True:
-            usage = Cpuusage(value=psutil.cpu_percent(interval=5), date=datetime.now())
+            usage = Cpuusage(value=psutil.cpu_percent(interval=1), date=datetime.now())
             db.session.add(usage)
             db.session.commit()
     except:
