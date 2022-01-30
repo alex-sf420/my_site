@@ -21,9 +21,9 @@ class Cpuusage(db.Model):
 @app.route('/')
 def index():
     values = [x.value for x in db.session.query(Cpuusage.value).distinct()]
-    date1 = [x.date for x in db.session.query(Cpuusage.date).distinct()]
-    data = json.dumps(time.mktime(date1[0].timetuple()) * 1000)
-    return render_template('index.html', values=json.dumps(values), time=data)
+    date = [x.date for x in db.session.query(Cpuusage.date).distinct()]
+    time_for_js = [time.mktime(date[x].timetuple()) * 1000 for x in range(len(date))]
+    return render_template('index.html', values=json.dumps(values), time=json.dumps(time_for_js))
 def check_usage():
     """
     Собирает информацию о загрузке ЦП с заданным интервалом
