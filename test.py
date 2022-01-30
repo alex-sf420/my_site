@@ -1,3 +1,4 @@
-from datetime import datetime, timedelta
-data = datetime.now() - timedelta(hours=1)
-print(data)
+a = b = 5
+print(a, b)
+a = 3
+print(a, b)
