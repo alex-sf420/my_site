@@ -14,16 +14,17 @@
         <script type="text/javascript">
             let value = JSON.parse('{{ values }}');
             let time = JSON.parse("{{ time }}");
-            for(let i=0; i<time.length; i++) {
-                time[i] = new Date(time[i]);
-                time[i] = `${time[i].toTimeString().slice(0, 9)}`
-            };
+            // for(let i=0; i<time.length; i++) {
+            //     time[i] = new Date(time[i]);
+            //     time[i] = `${time[i].toTimeString().slice(0, 9)}`
+            // };
             let average_value = JSON.parse('{{ average_value }}');
             let average_time = JSON.parse("{{ average_time }}");
-            for(let j=0; j<average_time.length; j++) {
-                average_time[j] = new Date(average_time[j]);
-                average_time[j] = `${average_time[j].toTimeString().slice(0, 5)}`
-            };
+            // for(let j=0; j<average_time.length; j++) {
+            //     average_time[j] = new Date(average_time[j]);
+            //     average_time[j] = `${average_time[j].toTimeString().slice(0, 5)}`
+            // };
+            let interval = JSON.parse('{{ interval }}');
         </script>
         <script src="..\static\main.js" type="text/javascript"></script>
         </div>
