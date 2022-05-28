@@ -67,8 +67,8 @@ def index():
         average_time_for_js = calculates_the_average_value(average_date)
     # переводим в Unix time список для первого графика
     time_for_js = [time.mktime(date[x].timetuple()) * 1000 for x in range(len(date))]
-    return render_template('index.html', values=json.dumps(value), time=json.dumps(time_for_js),\
-                           average_value=json.dumps(average_value), \
+    return render_template('index.html', values=json.dumps(value), time=json.dumps(time_for_js),
+                           average_value=json.dumps(average_value),
                            average_time=json.dumps(average_time_for_js), interval=json.dumps(INTERVAL*1000))
 def check_usage():
     """
